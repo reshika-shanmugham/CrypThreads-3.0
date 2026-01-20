@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrypThreads - Blockchain Messaging</title>
+    <link rel="stylesheet" href="styles.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <!-- Authentication Screen -->
+    <div id="auth-screen" class="screen active">
+        <div class="auth-container">
+            <div class="auth-header">
+                <img src="logo.png" alt="CrypThreads Logo" class="auth-logo">
+                <h1>CrypThreads</h1>
+                <p class="tagline">Secure Blockchain Messaging</p>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form" class="auth-form active">
+                <h2>Login</h2>
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password" required>
+                </div>
+                <button class="btn btn-primary" onclick="login()">Login</button>
+                <p class="switch-form">Don't have an account? <a href="#" onclick="switchToRegister()">Register</a></p>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form" class="auth-form">
+                <h2>Register</h2>
+                <div class="form-group">
+                    <label for="register-username">Username</label>
+                    <input type="text" id="register-username" placeholder="Choose a username" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" placeholder="Choose a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm">Confirm Password</label>
+                    <input type="password" id="register-confirm" placeholder="Confirm your password" required>
+                </div>
+                <button class="btn btn-primary" onclick="register()">Register</button>
+                <p class="switch-form">Already have an account? <a href="#" onclick="switchToLogin()">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="dashboard-screen" class="screen">
+        <div class="dashboard-container">
+            <!-- Left Sidebar - Statistics -->
+            <div class="left-sidebar">
+                <div class="sidebar-header">
+                    <img src="logo.png" alt="CrypThreads" class="sidebar-logo">
+                    <h3>CrypThreads</h3>
+                </div>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fa-solid fa-cube" style="font-size:35px;color:cyan;"></i></i></div>
+                        <div class="stat-info">
+                            <div class="stat-label">Total Blocks</div>
+                            <div class="stat-value" id="total-blocks">1</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fa-regular fa-clock" style="font-size: 30px;color:cyan;"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-label">Pending Messages</div>
+                            <div class="stat-value" id="pending-messages">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fa-regular fa-message" style="font-size:30px;color: cyan;"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-label">Total Messages</div>
+                            <div class="stat-value" id="total-messages">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fa-solid fa-users" style="font-size:30px;color:cyan;"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-label" onclick>Total Users</div>
+                            <div class="stat-value" id="total-users">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="blockchain-status">
+                    <div class="status-header">Blockchain Status</div>
+                    <div class="status-indicator">
+                        <span class="status-dot valid"></span>
+                        <span class="status-text">Valid & Verified</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content - Messaging Area -->
+            <div class="main-content">
+                <div class="content-header">
+                    <h2>Messages</h2>
+                    <div class="user-info">
+                        <span class="username-display" id="current-username"></span>
+                    </div>
+                </div>
+
+                <div class="messaging-area">
+                    <div class="message-list" id="message-list">
+                        <div class="no-messages">
+                            <div class="no-messages-icon"></div>
+                            <p>No messages yet. Start a conversation!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-input-area">
+                    <div class="input-header">
+                        <label for="recipient-select">Send to:</label>
+                        <select id="recipient-select" class="recipient-select">
+                            <option value="">Select recipient...</option>
+                        </select>
+                    </div>
+                    <div class="input-container">
+                        <textarea id="message-input" placeholder="Type your message here..." rows="3"></textarea>
+                        <button class="btn btn-send" onclick="sendMessage()">
+                            <span class="btn-icon"><i class="fa-solid fa-paper-plane"></i> </span>
+                            Send Message
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar - User Management -->
+            <div class="right-sidebar">
+                <div class="sidebar-header">
+                    <h3>User Management</h3>
+                </div>
+                
+                <button class="btn btn-action btn-mine" onclick="minePendingMessages()">
+                    <span class="btn-icon"></span>
+                    Mine Pending Messages
+                </button>
+
+                <div class="user-actions">
+                    <button class="btn btn-action" onclick="showUserList()">
+                        <span class="btn-icon">👥</span>
+                        View All Users
+                    </button>
+                    <button class="btn btn-action" onclick="showAddUser()">
+                        <span class="btn-icon"></span>
+                        Add New User
+                    </button>
+                    <button class="btn btn-action btn-logout" onclick="logout()">
+                        <span class="btn-icon"></span>
+                        Logout
+                    </button>
+                </div>
+
+                <div class="mining-info">
+                    <h4>Mining Information</h4>
+                    <div class="mining-detail">
+                        <span>Difficulty:</span>
+                        <span class="mining-value">2</span>
+                    </div>
+                    <div class="mining-detail">
+                        <span>Last Mined:</span>
+                        <span class="mining-value" id="last-mined">Never</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for User List -->
+    <div id="user-list-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Registered Users</h3>
+                <span class="close" onclick="closeModal('user-list-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="user-list-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Add User -->
+    <div id="add-user-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New User</h3>
+                <span class="close" onclick="closeModal('add-user-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="new-username">Username</label>
+                    <input type="text" id="new-username" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label for="new-password">Password</label>
+                    <input type="password" id="new-password" placeholder="Enter password">
+                </div>
+                <button class="btn btn-primary" onclick="addNewUser()">Add User</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="notification"></div>
+
+    <script src="blockchain.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

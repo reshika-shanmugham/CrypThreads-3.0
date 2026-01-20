@@ -1,0 +1,18 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0  9644    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0  9644    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+HTTP/2 200 
+content-type: text/html
+content-length: 9644
+date: Fri, 07 Nov 2025 14:03:33 GMT
+last-modified: Fri, 07 Nov 2025 14:02:47 GMT
+etag: "d4bfce6ad09eb89fd00cf8bf47f8c1ec"
+x-amz-server-side-encryption: AES256
+accept-ranges: bytes
+server: AmazonS3
+x-cache: Miss from cloudfront
+via: 1.1 fe0954a32773e551e518a3fa7b498388.cloudfront.net (CloudFront)
+x-amz-cf-pop: MIA50-P3
+x-amz-cf-id: kvJRCcFOyEnry3STzNpz8bFH6MKOgIwc_8_3cCbHXgQOPchGrcJJCQ==
+vary: Origin
+
